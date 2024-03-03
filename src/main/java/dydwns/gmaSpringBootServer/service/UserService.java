@@ -24,17 +24,17 @@ public class UserService {
     }
 
     //로그인
-    public boolean loginUser(String userId, String userPw){
+    public Long loginUser(String userId, String userPw){
         User user = userDao.selectUser(userId);
 
         if(user == null) {
-            return false;
+            return null;
         }
 
         if(user.getUserPw().equals(userPw)){
-            return true;
+            return user.getUserIdx();
         }
 
-        return false;
+        return null;
     }
 }

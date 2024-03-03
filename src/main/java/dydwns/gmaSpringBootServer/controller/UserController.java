@@ -29,18 +29,18 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<LoginResponseVO> login(@RequestBody LoginRequestVO loginRequestVO) {
-        boolean success = userService.loginUser(loginRequestVO.getUserId(), loginRequestVO.getUserPw());
+        Long userIdx = userService.loginUser(loginRequestVO.getUserId(), loginRequestVO.getUserPw());
 
-        if(success){
-            return ResponseEntity.ok(LoginResponseVO.builder()
-                    .message("로그인 성공")
-                    .build());
-        }else{
+        if (userIdx == null) {
             return ResponseEntity.badRequest()
                     .body(LoginResponseVO.builder()
                             .message("로그인 실패")
                             .build());
         }
-    }
 
+        return ResponseEntity.ok(LoginResponseVO.builder()
+                .message("로그인 성공")
+                .userIdx(userIdx)
+                .build());
+    }
 }

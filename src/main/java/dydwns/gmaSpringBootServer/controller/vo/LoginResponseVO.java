@@ -7,4 +7,5 @@ import lombok.Data;
 @Builder
 public class LoginResponseVO {
     String message;
+    Long userIdx;
 }
